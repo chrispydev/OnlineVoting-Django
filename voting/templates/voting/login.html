@@ -1,0 +1,126 @@
+{% extends "voting/base_1.html" %}
+{% load static %}
+{% comment %} 
+{% extends "voting/base.html" %}
+{% block content %}
+
+    <div class="login-box">
+        <div class="login-logo">
+            <b>Online Voting System</b>
+        </div>
+
+        <div class="login-box-body">
+            <!-- <p class="login-box-msg">Sign in to start your session</p> -->
+
+            <form action="{% url 'account_login' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="email" placeholder="Email" required>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-success btn-block btn-flat" name="login"><i
+                                class="fa fa-sign-in"></i> Log In</button>
+                    </div>
+                    <div class="pull-right col-xs-4">
+                        <a  class="btn btn-warning btn-block btn-flat" href="{% url 'account_register' %}"><i class="fa fa-user-plus"></i> Register</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+            </div>
+
+ 
+{% endblock content %}  {% endcomment %}
+
+
+
+    /* Custom styles for messages */
+.message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.message-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.message-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.message-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+
+{% block content %}
+<div class="wrapper">
+    <div class="inner">
+        <img src="{% static 'assets/images/image-1.png' %}" alt="" class="image-1">
+        <h2 style="background-color: #3498db; color: #fff; padding: 10px; margin-top: 20px; text-align:center;">E-VOTING</h2>
+        
+        <form method= "POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+
+             <!-- Display messages with inline styles -->
+             {% if messages %}
+             {% for message in messages %}
+                 <div style="padding: 15px; margin-bottom: 20px; border-radius: 5px; {% if message.tags == 'success' %}background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;{% elif message.tags == 'info' %}background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb;{% elif message.tags == 'warning' %}background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;{% elif message.tags == 'error' %}background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;{% endif %}">
+                     {{ message }}
+                 </div>
+             {% endfor %}
+         {% endif %}
+           
+            <h3>Login</h3>
+
+           
+                <!-- Email -->
+            <div class="form-holder">
+                <span class="lnr lnr-envelope"></span>
+                <input name="email" type="text" class="form-control" placeholder="Voter ID (email address)" required>
+            </div>
+
+            <!-- Password -->
+            <div class="form-holder">
+                <span class="lnr lnr-lock"></span>
+                <span toggle="#password1" class="field-icon toggle-password">
+                    <i class="far fa-eye" style="cursor: pointer; position: absolute; left: 290px; top: 50%; transform: translateY(-50%);"></i>
+                </span>
+                <input id="password1" name="password" type="password" class="form-control" placeholder="Password" required>
+            </div>
+           
+            <button>
+                <span>SIGN IN</span>
+            </button>
+
+            <p style="margin-top: 15px; text-align:center" >Don't have an account? <a href="{% url 'account_register' %}" style="color: #3498db;">Sign up</a></p>
+
+        </form>
+        <img src="{% static 'assets/images/image-2.png' %}" alt="" class="image-2">
+    </div>
+    
+</div>
+
+
+
+{% endblock %}

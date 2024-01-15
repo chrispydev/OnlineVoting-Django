@@ -1,0 +1,267 @@
+{% extends "voting/base_1.html" %}
+{% load static %}
+{% comment %} {% extends "voting/base.html" %}
+{% block content %}
+
+    <div class="login-box">
+        <div class="login-logo">
+            <b>Voting System</b>
+        </div>
+
+        <div class="login-box-body">
+            <!-- <p class="login-box-msg">Register an account</p> -->
+    <form action="{% url 'account_register' %}" method="POST">
+                {% csrf_token %}
+
+             
+                <div class="modal-body">
+                    {% for field in form1  %}
+                    <div class="form-group has-feedback">
+                        <span class="text-danger">{{field.errors}}</span>
+                        {{field.label_tag}}
+                        {{field}}
+                    </div>
+                    {% endfor %}
+
+                    {% for field in form2  %}
+                    <div class="form-group has-feedback">
+                        <span class="text-danger">{{field.errors}}</span>
+                        {{field.label_tag}}
+                        {{field}}
+                    </div>
+                    {% endfor %}
+
+
+               
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat" name="login"><i
+                                    class="fa fa-user-plus"></i> Register</button>
+                        </div>
+                        <div class="pull-right col-xs-6">
+                            <a  class="btn btn-success btn-block btn-flat" href="{% url 'account_login' %}"><i class="fa fa-sign-in"></i> Log In</a>
+                        </div>
+                    </div> 
+                </div>
+        </div>
+        </form>
+        </div>
+            </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="register" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{% url 'account_register' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="modal-header">
+                        <p class="modal-title" id="register">Create New Account <span class="float-right">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </span></p>
+                       
+                    </div>
+                    <div class="modal-body">
+                        {% for field in form1  %}
+                        <div class="form-group has-feedback">
+                            {{field.errors}}
+                            {{field.label_tag}}
+                            {{field}}
+                        </div>
+                        {% endfor %}
+
+                        {% for field in form2  %}
+                        <div class="form-group has-feedback">
+                            {{field.errors}}
+                            {{field.label_tag}}
+                            {{field}}
+                        </div>
+                        {% endfor %}
+
+
+                   
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="none" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" name="reg"
+                            onclick="return confirm('Are you sure the details provided are correct?\nYou will NOT be allowed to make modifications.')"
+                            class="btn btn-success">Save</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}  {% endcomment %}
+
+
+{% block content %}
+
+<style>
+    .top {
+        margin-top:-19px;
+    }
+
+</style>
+
+<div class="wrapper">
+    <div class="inner">
+        <img src="{% static 'assets/images/image-1.png' %}" alt="" class="image-1">
+        {% comment %} <h2 style="background-color: #3498db; color: #fff; padding: 10px; margin-top: 20px; text-align:center;">E-VOTING</h2> {% endcomment %}
+        
+        <form method= "POST" action="{% url 'account_register' %}" style="height : 705px">
+            {% csrf_token %}
+
+            <!-- Messages -->
+            {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 15px; margin-bottom: 20px; margin-top: -70px; border-radius: 5px; 
+                            {% if message.tags == 'success' %}background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;{% endif %}
+                            {% if message.tags == 'info' %}background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb;{% endif %}
+                            {% if message.tags == 'warning' %}background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;{% endif %}
+                            {% if message.tags == 'error' %}background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+           
+                    <h3 >Sign Up</h3>
+         
+
+           {% comment %} {% for field in form1  %}
+        <div class="form-holder">
+                <div class="form-group has-feedback">
+                    <span class="text-danger">{{field.errors}}</span>
+                    {{field.label_tag}}
+                    {{field}}
+                </div>
+            </div>
+            {% endfor %}
+
+                {% for field in form2  %}
+                <div class="form-holder">
+                <div class="form-group has-feedback">
+                    <span class="text-danger">{{field.errors}}</span>
+                    {{field.label_tag}}
+                    {{field}}
+                </div>
+            </div> 
+            {% endfor %}  {% endcomment %}
+            
+
+             <!-- Email -->
+             <div class="form-holder top">
+                <div class="form-group has-feedback">
+                    <span class="lnr lnr-envelope" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+                    <span class="text-danger" style="position: absolute; left: 60px; bottom: -75px; color: #D25380; margin-top: 5px;">{{ form1.email.errors }}</span>
+                    {{ form1.email.label_tag }}
+                    {{ form1.email }}
+                </div>
+            </div>  
+
+            
+            <!-- First name -->
+             <div class="form-holder  top">
+                <div class="form-group has-feedback">
+                    <span class="lnr lnr-user" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+                    <span class="text-danger" style="position: absolute; left: 60px; bottom: -75px; color: #D25380; margin-top: 5px;">{{ form1.first_name.errors }}</span>
+                    {{ form1.first_name.label_tag }}
+                    {{ form1.first_name }}
+                </div>
+            </div>
+            
+            <!-- Last name -->
+            <div class="form-holder top">
+                <div class="form-group has-feedback">
+                    <span class="lnr lnr-user" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+                    <span class="text-danger" style="position: absolute; left: 60px; bottom: -75px; color: #D25380; margin-top: 5px;">{{ form1.last_name.errors }}</span>
+                    {{ form1.last_name.label_tag }}
+                    {{ form1.last_name }}
+                </div>
+            </div>
+
+           
+            <!-- Date of Birth -->
+            <div class="form-holder top">
+                <div class="form-group has-feedback">
+                    <span class="lnr lnr-calendar-full" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+                    <span class="lnr lnr-calendar" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+                    {{ form1.date_of_birth.label_tag }}
+                    {{ form1.date_of_birth }}
+                </div>
+            </div>
+
+           
+            <!-- Password 1 -->
+            <div class="form-holder top">
+                <div class="form-group has-feedback">
+                    <span class="lnr lnr-lock" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+                    <span class="text-danger" style="position: absolute; left: 60px; bottom: -75px; color: #D25380; margin-top: 5px;">{{ form1.password.errors }}</span>
+                    {{ form1.password.label_tag }}
+                    {{ form1.password }}
+                    <!-- Toggle password visibility using Font Awesome icon -->
+                    <span toggle="#id_password" class="field-icon toggle-password">
+                        <i class="far fa-eye" style="cursor: pointer; position: absolute; left: 290px; top: 50%; transform: translateY(-50%);"></i>
+                    </span>
+                </div>
+            </div>
+            
+
+          
+            <!-- Phone -->
+        <div class="form-holder top">
+            <span class="lnr lnr-phone-handset" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+            <div class="form-group has-feedback">
+        <span class="text-danger" style="position: absolute; left: 61px; bottom: -50px; color: #D25380; margin-top: 5px;">{{ form2.phone.errors }}</span>
+        {{ form2.phone.label_tag }}
+        {{ form2.phone }}
+    </div>
+        </div>
+
+        <!-- constituency -->
+        <div class="form-holder top">
+            <div class="form-group has-feedback">
+                <span class="lnr lnr-location" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+                <span style="position: absolute; left: 61px; bottom: -50px; color: #D25380; margin-top: 5px;" class="text-danger">{{ form2.constituency.errors }}</span>
+                {{ form2.constituency.label_tag }}
+                {{ form2.constituency }}
+            </div>
+        </div>
+            {# Form 2 - VoterForm UVC field #}
+
+        {% comment %} <div class="form-holder top">
+            <span class="lnr lnr-license" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+            <div class="form-group has-feedback">
+                {{ form2.uvc.label_tag }}
+                {{ form2.uvc }}
+            </div>
+        </div> {% endcomment %}
+<!-- UVC -->
+        <div class="form-holder">
+             <div class="form-group has-feedback">
+        <span class="lnr lnr-license" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+        <span class="text-danger" style="position: absolute; left: 61px; bottom: -50px; color: #D25380; margin-top: 5px;">{{ form2.uvc.errors }}</span>
+        {{ form2.uvc.label_tag }}
+        {{ form2.uvc }}
+    </div>
+    </div>
+
+
+            <button style="margin-top:10px;">
+                <span >REGISTER</span>
+            </button>
+
+            <p style="margin-top: 15px; text-align:center" >Already have an account? <a href="{% url 'account_login' %}" style="color: #3498db;">Sign in</a></p>
+
+        </form>
+        <img src="{% static 'assets/images/image-2.png' %}" alt="" class="image-2">
+    </div>
+    
+</div>
+
+
+
+{% endblock %}
